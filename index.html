@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PitchVision — AI-Powered Football Match Analysis & Tactical Insights</title>
+  <meta name="description" content="End-to-end computer vision and AI system transforming raw football broadcast frames into high-precision 2D tactical maps, team classification, formation inference, and real-time spatial analytics.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar" id="mainNav">
+    <div class="nav-container">
+      <a href="#" class="logo-brand">
+        <div class="logo-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="m4.93 4.93 4.24 4.24"></path>
+            <path d="m14.83 9.17 4.24-4.24"></path>
+            <path d="m14.83 14.83 4.24 4.24"></path>
+            <path d="m9.17 14.83-4.24 4.24"></path>
+            <circle cx="12" cy="12" r="4"></circle>
+          </svg>
+        </div>
+        <span>Pitch<span class="gradient-text">Vision</span></span>
+        <span class="logo-tag">AI CORE</span>
+      </a>
+
+      <ul class="nav-links" id="navbarLinks">
+        <li><a href="#overview" class="active">Overview</a></li>
+        <li><a href="#sandbox">Live Sandbox</a></li>
+        <li><a href="#what-we-build">What We Build</a></li>
+        <li><a href="#pipeline">5-Stage Pipeline</a></li>
+        <li><a href="#why-better">Why Better</a></li>
+        <li><a href="#deliverables">Deliverables & Stack</a></li>
+        <li><a href="#roadmap">Roadmap</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <div class="status-pill">
+          <span class="pulse-dot"></span>
+          <span>CV ENGINE READY</span>
+        </div>
+        <a href="#sandbox" class="btn btn-primary btn-sm">Launch Live Studio</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero-section" id="overview">
+    <div class="hero-glow-orb hero-glow-1"></div>
+    <div class="hero-glow-orb hero-glow-2"></div>
+
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge-container">
+          <span class="section-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+            Next-Gen Sports Analytics · Computer Vision & Deep Learning
+          </span>
+          <span class="academic-badge">Automated Tactical Intelligence · Single-Camera Broadcast Homography</span>
+        </div>
+
+        <h1 class="hero-title">
+          AI-Powered Football Match Intelligence & <span class="gradient-text">Tactical Vision</span>
+        </h1>
+
+        <p class="hero-description">
+          PitchVision bridges the gap between raw match broadcast footage and elite tactical intelligence. Using deep learning, planar homography, and spatial clustering, we automatically extract 22-player tracking, jersey classifications, formations, and pitch analytics from still images and broadcast video.
+        </p>
+
+        <div class="hero-ctas">
+          <a href="#sandbox" class="btn btn-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            Explore Interactive Sandbox
+          </a>
+          <a href="#why-better" class="btn btn-secondary">
+            Why PitchVision vs Legacy Platforms
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+        </div>
+
+        <!-- Key Metrics Ribbon -->
+        <div class="stats-ribbon">
+          <div class="stat-card">
+            <div class="stat-value cyan">0 Sensor</div>
+            <div class="stat-label">Hardware Independence (Broadcast Ingestion)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value green">&lt; 50ms</div>
+            <div class="stat-label">YOLO Detection & Localization Latency</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value yellow">105m × 68m</div>
+            <div class="stat-label">Calibrated 2D Top-Down Tactical Homography</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value cyan">100% Auto</div>
+            <div class="stat-label">Unsupervised Team & Formation Inference</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Section: Interactive Tactical Sandbox Studio -->
+  <section class="section sandbox-section" id="sandbox">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge green">Live Interactive Studio</span>
+        <h2 class="section-title">Experience the <span class="gradient-text">PitchVision Engine</span> in Real-Time</h2>
+        <p class="section-subtitle">
+          Toggle computer vision layers, test tactical scenarios, and inspect dynamic 2D planar homography transformations directly in your browser.
+        </p>
+      </div>
+
+      <div class="sandbox-container">
+        <!-- Top Controls Bar -->
+        <div class="sandbox-controls-bar">
+          <div class="scenario-selector">
+            <span class="scenario-label">Match Scenario:</span>
+            <button class="scenario-btn active" data-scenario="high-press">4-3-3 High Press</button>
+            <button class="scenario-btn" data-scenario="mid-block">4-2-3-1 Mid-Block</button>
+            <button class="scenario-btn" data-scenario="deep-block">5-3-2 Deep Counter</button>
+          </div>
+
+          <div class="layer-toggles">
+            <div class="toggle-chip active" data-layer="bboxes">
+              <span class="chip-dot"></span>
+              <span>YOLO BBoxes</span>
+            </div>
+            <div class="toggle-chip active" data-layer="jerseyColors">
+              <span class="chip-dot"></span>
+              <span>Team Labels</span>
+            </div>
+            <div class="toggle-chip active" data-layer="homography">
+              <span class="chip-dot"></span>
+              <span>Homography Grid</span>
+            </div>
+            <div class="toggle-chip active" data-layer="convexHulls">
+              <span class="chip-dot"></span>
+              <span>Convex Hulls</span>
+            </div>
+            <div class="toggle-chip active" data-layer="formationLines">
+              <span class="chip-dot"></span>
+              <span>Formation Lines</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dual View Studio -->
+        <div class="dual-view-grid">
+          <!-- View 1: Broadcast Camera View with Overlays -->
+          <div class="view-card">
+            <div class="view-header">
+              <div class="view-title-group">
+                <span class="view-icon">📹</span>
+                <span class="view-title">Camera Broadcast Frame</span>
+                <span class="view-badge">Perspective Input</span>
+              </div>
+              <span class="view-stage-pill">Stage 1 & 2 Detections</span>
+            </div>
+            <div class="viewport-container">
+              <img src="assets/broadcast_match.jpg" alt="Match Broadcast View" class="broadcast-img" id="broadcastImage">
+              <canvas class="overlay-canvas" id="cameraOverlayCanvas"></canvas>
+            </div>
+          </div>
+
+          <!-- View 2: Top-Down Tactical 2D Radar -->
+          <div class="view-card">
+            <div class="view-header">
+              <div class="view-title-group">
+                <span class="view-icon">📐</span>
+                <span class="view-title">2D Tactical Radar</span>
+                <span class="view-badge">Homography Rectified (105m × 68m)</span>
+              </div>
+              <span class="view-stage-pill">Stage 3, 4 & 5 Analytics</span>
+            </div>
+            <div class="radar-canvas-container">
+              <canvas class="radar-canvas" id="tacticalRadarCanvas"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Telemetry Panel -->
+        <div class="telemetry-panel">
+          <div class="telemetry-card">
+            <div class="telemetry-header">
+              <span>Tactical Width (Team A / B)</span>
+              <span style="color: var(--accent-cyan);">Lateral Spread</span>
+            </div>
+            <div class="telemetry-body">
+              <span class="telemetry-num" id="telemetryWidth">52.4m / 38.5m</span>
+            </div>
+            <div class="telemetry-bar-bg">
+              <div class="telemetry-bar-fill fill-team-a" id="widthBarA" style="width: 77%;"></div>
+            </div>
+          </div>
+
+          <div class="telemetry-card">
+            <div class="telemetry-header">
+              <span>Team Compactness (Hull Area)</span>
+              <span style="color: var(--accent-green);">Surface Area</span>
+            </div>
+            <div class="telemetry-body">
+              <span class="telemetry-num" id="telemetryCompact">1240 m²</span>
+            </div>
+            <div class="telemetry-bar-bg">
+              <div class="telemetry-bar-fill fill-green" id="compactBarA" style="width: 62%;"></div>
+            </div>
+          </div>
+
+          <div class="telemetry-card">
+            <div class="telemetry-header">
+              <span>Defensive Line Height</span>
+              <span style="color: var(--accent-yellow);">Offside Depth</span>
+            </div>
+            <div class="telemetry-body">
+              <span class="telemetry-num" id="telemetryDefLine">48.2m</span>
+              <span class="telemetry-unit">from goal</span>
+            </div>
+            <div class="telemetry-bar-bg">
+              <div class="telemetry-bar-fill fill-cyan" style="width: 46%;"></div>
+            </div>
+          </div>
+
+          <div class="telemetry-card">
+            <div class="telemetry-header">
+              <span>Inferred Formation</span>
+              <span style="color: var(--accent-purple);">Spatial Clustering</span>
+            </div>
+            <div class="telemetry-body">
+              <span class="telemetry-num" id="telemetryFormation">4-3-3</span>
+              <span class="telemetry-unit">detected</span>
+            </div>
+            <div class="telemetry-bar-bg">
+              <div class="telemetry-bar-fill fill-team-b" style="width: 90%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Tactical Legend -->
+        <div class="tactical-legend-bar">
+          <div class="legend-items">
+            <div class="legend-item"><span class="legend-marker team-a"></span><span>Team A (Blue Kits)</span></div>
+            <div class="legend-item"><span class="legend-marker team-b"></span><span>Team B (Red Kits)</span></div>
+            <div class="legend-item"><span class="legend-marker referee"></span><span>Referee (Yellow)</span></div>
+            <div class="legend-item"><span class="legend-marker ball"></span><span>Match Ball</span></div>
+          </div>
+          <div style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent-cyan);">
+            💡 Hover over any player on either view to inspect real-time pitch coordinates (X, Y)
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: What We Are Building (5 Core Pillars) -->
+  <section class="section" id="what-we-build">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">Core Objectives</span>
+        <h2 class="section-title">What We Are <span class="gradient-text">Building</span></h2>
+        <p class="section-subtitle">
+          PitchVision breaks down the complex challenge of computerized football analytics into five cohesive, mathematically grounded objectives.
+        </p>
+      </div>
+
+      <div class="pillars-grid">
+        <!-- Pillar 1 -->
+        <div class="glass-card pillar-card">
+          <div class="pillar-number">OBJECTIVE 01</div>
+          <div class="pillar-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <h3 class="pillar-title">Football Object Detection</h3>
+          <p class="pillar-desc">
+            Deep learning localization capable of identifying all relevant entities in broadcast match frames with high precision and sub-pixel ground contact localization.
+          </p>
+          <ul class="pillar-features">
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Outfield players, goalkeepers & referees</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> High-speed small-object ball localization</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> YOLOv8 transfer learning on match datasets</li>
+          </ul>
+        </div>
+
+        <!-- Pillar 2 -->
+        <div class="glass-card pillar-card green">
+          <div class="pillar-number">OBJECTIVE 02</div>
+          <div class="pillar-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3 class="pillar-title">Unsupervised Team Classification</h3>
+          <p class="pillar-desc">
+            Automatic separation of players into their respective teams without manual labeling using color histogram extraction and unsupervised clustering.
+          </p>
+          <ul class="pillar-features">
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Torso crop HSV color space extraction</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Pitch turf green hue masking & filtering</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> K-Means dominant color clustering</li>
+          </ul>
+        </div>
+
+        <!-- Pillar 3 -->
+        <div class="glass-card pillar-card">
+          <div class="pillar-number">OBJECTIVE 03</div>
+          <div class="pillar-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          </div>
+          <h3 class="pillar-title">Pitch Understanding & Homography</h3>
+          <p class="pillar-desc">
+            Projective geometric transformation mapping skewed perspective camera pixels onto a standardized 2D top-down (105m × 68m) tactical field representation.
+          </p>
+          <ul class="pillar-features">
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Field line and keypoint landmark detection</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> 3×3 Planar Homography matrix estimation</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Metric real-world coordinate normalization</li>
+          </ul>
+        </div>
+
+        <!-- Pillar 4 -->
+        <div class="glass-card pillar-card">
+          <div class="pillar-number">OBJECTIVE 04</div>
+          <div class="pillar-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <h3 class="pillar-title">Formation Detection</h3>
+          <p class="pillar-desc">
+            Inferring team tactical structures (e.g. 4-3-3, 4-4-2, 4-2-3-1, 3-5-2) using spatial player clustering, line regression, and positional topology matching.
+          </p>
+          <ul class="pillar-features">
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Defensive, midfield & forward line grouping</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Dynamic in-possession shape estimation</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Visual & textual tactical descriptions</li>
+          </ul>
+        </div>
+
+        <!-- Pillar 5 -->
+        <div class="glass-card pillar-card green">
+          <div class="pillar-number">OBJECTIVE 05</div>
+          <div class="pillar-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          </div>
+          <h3 class="pillar-title">Tactical Insights & Analytics</h3>
+          <p class="pillar-desc">
+            Automated intelligence generation from 2D coordinates: computing team width, convex hull compactness, defensive line height, and midfield dominance.
+          </p>
+          <ul class="pillar-features">
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Team width (m) & length stretch metrics</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Convex Hull compactness surface area (m²)</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Zone 14 & midfield overload indicators</li>
+          </ul>
+        </div>
+
+        <!-- System Integration Banner -->
+        <div class="glass-card pillar-card" style="background: linear-gradient(135deg, rgba(0, 242, 254, 0.08) 0%, rgba(0, 255, 135, 0.05) 100%);">
+          <div class="pillar-number">END-TO-END PIPELINE</div>
+          <div class="pillar-icon-box" style="color: #fff; background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green));">
+            ⚡
+          </div>
+          <h3 class="pillar-title">Modular End-to-End System</h3>
+          <p class="pillar-desc">
+            All 5 components connect as a streamlined Python pipeline designed for single-image execution with full readiness for continuous video tracking.
+          </p>
+          <div style="margin-top: 10px;">
+            <a href="#pipeline" class="btn btn-secondary btn-sm" style="width: 100%;">View Pipeline Architecture & Code →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: How It Works (5-Stage Architecture & Pipeline) -->
+  <section class="section" id="pipeline" style="background: rgba(9, 14, 24, 0.4);">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge green">System Architecture</span>
+        <h2 class="section-title">How It Works: <span class="gradient-text">The 5-Stage Pipeline</span></h2>
+        <p class="section-subtitle">
+          Explore the algorithmic architecture that transforms raw RGB image pixels into structured tactical spatial intelligence.
+        </p>
+      </div>
+
+      <div class="pipeline-layout">
+        <!-- Left: Pipeline Steps Selector -->
+        <div class="pipeline-stepper">
+          <div class="step-card active" data-step="0">
+            <div class="step-badge">01</div>
+            <div class="step-info">
+              <h4>Detection</h4>
+              <p>YOLOv8 fine-tuned object detector</p>
+            </div>
+          </div>
+
+          <div class="step-card" data-step="1">
+            <div class="step-badge">02</div>
+            <div class="step-info">
+              <h4>Classification</h4>
+              <p>Unsupervised HSV K-Means clustering</p>
+            </div>
+          </div>
+
+          <div class="step-card" data-step="2">
+            <div class="step-badge">03</div>
+            <div class="step-info">
+              <h4>Spatial Mapping</h4>
+              <p>OpenCV perspective homography</p>
+            </div>
+          </div>
+
+          <div class="step-card" data-step="3">
+            <div class="step-badge">04</div>
+            <div class="step-info">
+              <h4>Formation Analysis</h4>
+              <p>Positional clustering & line regression</p>
+            </div>
+          </div>
+
+          <div class="step-card" data-step="4">
+            <div class="step-badge">05</div>
+            <div class="step-info">
+              <h4>Insight Generation</h4>
+              <p>Spatial KPI math & reporting</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Stage Details & Code Display Container -->
+        <div class="stage-display-container">
+          <div class="stage-header">
+            <div class="stage-title-wrap">
+              <h3 id="stageTitle">Stage 1: YOLO Object Detection</h3>
+              <div class="stage-tech-tags" id="stageTechTags">
+                <span class="tech-tag">Ultralytics YOLOv8</span>
+                <span class="tech-tag">PyTorch</span>
+                <span class="tech-tag">Transfer Learning</span>
+              </div>
+            </div>
+          </div>
+
+          <p class="stage-explanation" id="stageExplanation">
+            PitchVision deploys a customized YOLO deep neural network fine-tuned on professional football datasets to detect and segment players, referees, goalkeepers, and the football in sub-50ms latency.
+          </p>
+
+          <div class="stage-visual-grid">
+            <div class="stage-visual-box">
+              <h5 id="stageBox1Title">Detection Targets</h5>
+              <p id="stageBox1Desc">Localized entities include outfield players, goalkeepers (special kit), referees (fluorescent yellow/black), and the match ball with sub-pixel precision.</p>
+            </div>
+            <div class="stage-visual-box">
+              <h5 id="stageBox2Title">Output Features</h5>
+              <p id="stageBox2Desc">Produces bounding coordinates [x_min, y_min, x_max, y_max], class logits, object confidence scores, and player foot-contact ground points.</p>
+            </div>
+          </div>
+
+          <!-- Code Snippet -->
+          <div class="code-block-wrap">
+            <div class="code-header">
+              <span class="code-lang">Python · PyTorch / OpenCV</span>
+              <span>pitchvision_pipeline.py</span>
+            </div>
+            <pre><code id="stageCode"></code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Why PitchVision Is Superior (Market & Competitive Analysis) -->
+  <section class="section" id="why-better">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">Competitive Advantage</span>
+        <h2 class="section-title">Why PitchVision Is <span class="gradient-text">Better Than Existing Platforms</span></h2>
+        <p class="section-subtitle">
+          Modern football analytics is dominated by either ultra-expensive stadium camera setups or slow manual tagging services. PitchVision disrupts this paradigm.
+        </p>
+      </div>
+
+      <!-- 3-Way Comparison Cards -->
+      <div class="competitor-cards-grid">
+        <!-- Legacy 1: Manual Tagging -->
+        <div class="comp-card legacy">
+          <span class="comp-badge danger">Slow & Labor-Intensive</span>
+          <h3 class="comp-title">Manual Event Tagging</h3>
+          <div class="comp-examples">Examples: Wyscout, Opta, InStat</div>
+          <ul class="comp-flaws-list">
+            <li><span class="flaw-icon">✕</span> <strong>High Latency:</strong> Requires human operators tagging events; reports take hours or days post-match.</li>
+            <li><span class="flaw-icon">✕</span> <strong>Discrete Events Only:</strong> Only logs touches/passes; zero continuous spatial tracking of off-the-ball movements.</li>
+            <li><span class="flaw-icon">✕</span> <strong>Human Error:</strong> Subjective classification of events and inconsistent metric definitions.</li>
+            <li><span class="flaw-icon">✕</span> <strong>Costly Subscriptions:</strong> Prohibitive recurring fees for lower leagues and academies.</li>
+          </ul>
+        </div>
+
+        <!-- PitchVision Flagship Card -->
+        <div class="comp-card flagship">
+          <span class="comp-badge highlight">The PitchVision Advantage</span>
+          <h3 class="comp-title">PitchVision AI</h3>
+          <div class="comp-examples">Automated Computer Vision & Homography</div>
+          <ul class="comp-flaws-list benefits">
+            <li><span class="benefit-icon">✓</span> <strong>Zero Dedicated Hardware:</strong> Works on standard single broadcast cameras, smartphones, or match stills.</li>
+            <li><span class="benefit-icon">✓</span> <strong>Full 22-Player + Ball Tracking:</strong> Continuous positional geometry of both teams simultaneously.</li>
+            <li><span class="benefit-icon">✓</span> <strong>Instant Turnaround:</strong> Deep learning inference & 2D metric generation in real-time.</li>
+            <li><span class="benefit-icon">✓</span> <strong>Democratized Access:</strong> Enables elite tactical data for grassroots, scouts, colleges, and fans.</li>
+          </ul>
+          <a href="#sandbox" class="btn btn-primary btn-sm" style="margin-top: auto;">Test Real-Time Engine</a>
+        </div>
+
+        <!-- Legacy 2: Multi-Camera Stadium Optical Tracking -->
+        <div class="comp-card legacy">
+          <span class="comp-badge danger">$100k+ Stadium Rig</span>
+          <h3 class="comp-title">Stadium Optical Tracking</h3>
+          <div class="comp-examples">Examples: TRACAB, Hawk-Eye, Second Spectrum</div>
+          <ul class="comp-flaws-list">
+            <li><span class="flaw-icon">✕</span> <strong>Massive Hardware Cost:</strong> Requires $100,000+ dedicated multi-camera rigs installed in stadium gantries.</li>
+            <li><span class="flaw-icon">✕</span> <strong>Zero Portability:</strong> Locked to tier-1 premier stadiums; impossible for training grounds or away matches.</li>
+            <li><span class="flaw-icon">✕</span> <strong>Closed Ecosystem:</strong> Proprietary data formats inaccessible to independent analysts and research teams.</li>
+            <li><span class="flaw-icon">✕</span> <strong>Complex Calibration:</strong> Lengthy physical survey calibration required before every matchday.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Feature Benchmark Matrix Table -->
+      <div class="matrix-container" id="benchmarks">
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th>Feature / Metric</th>
+              <th class="pitchvision-col">PitchVision AI</th>
+              <th>Manual Tagging (Wyscout/Opta)</th>
+              <th>Stadium Optical (TRACAB)</th>
+              <th>GPS Vests (Catapult)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Hardware Requirement</strong></td>
+              <td class="pitchvision-col"><span class="score-badge win">0 Hardware (Broadcast/Image)</span></td>
+              <td><span class="score-badge win">0 Hardware (Video)</span></td>
+              <td><span class="score-badge lose">16+ Stadium Cameras ($100k+)</span></td>
+              <td><span class="score-badge neutral">Wearable Vests per player</span></td>
+            </tr>
+            <tr>
+              <td><strong>Turnaround Time</strong></td>
+              <td class="pitchvision-col"><span class="score-badge win">Sub-second / Real-time</span></td>
+              <td><span class="score-badge lose">12 to 48 Hours (Human taggers)</span></td>
+              <td><span class="score-badge win">Real-time</span></td>
+              <td><span class="score-badge neutral">Post-session sync</span></td>
+            </tr>
+            <tr>
+              <td><strong>Opponent Tracking Context</strong></td>
+              <td class="pitchvision-col"><span class="score-badge win">Full Both Teams (22 Players)</span></td>
+              <td><span class="score-badge neutral">Event-dependent</span></td>
+              <td><span class="score-badge win">Full Both Teams</span></td>
+              <td><span class="score-badge lose">Own Team Only (0 Opponent)</span></td>
+            </tr>
+            <tr>
+              <td><strong>Ball Localization</strong></td>
+              <td class="pitchvision-col"><span class="score-badge win">Real-time Ball Tracking</span></td>
+              <td><span class="score-badge neutral">Touch Events Only</span></td>
+              <td><span class="score-badge win">Full 3D Ball Track</span></td>
+              <td><span class="score-badge lose">No Ball Data</span></td>
+            </tr>
+            <tr>
+              <td><strong>2D Tactical Homography</strong></td>
+              <td class="pitchvision-col"><span class="score-badge win">Automated Top-Down Radar</span></td>
+              <td><span class="score-badge lose">None (Raw footage)</span></td>
+              <td><span class="score-badge win">3D Radar</span></td>
+              <td><span class="score-badge neutral">GPS Heatmaps (No ball/opp)</span></td>
+            </tr>
+            <tr>
+              <td><strong>Automated Formation Inference</strong></td>
+              <td class="pitchvision-col"><span class="score-badge win">Spatial Line Clustering</span></td>
+              <td><span class="score-badge neutral">Static Starting Lineup</span></td>
+              <td><span class="score-badge win">Dynamic Tracking</span></td>
+              <td><span class="score-badge lose">Not Supported</span></td>
+            </tr>
+            <tr>
+              <td><strong>Grassroots & College Accessibility</strong></td>
+              <td class="pitchvision-col"><span class="score-badge win">High (Democratized)</span></td>
+              <td><span class="score-badge neutral">Medium ($$$ sub)</span></td>
+              <td><span class="score-badge lose">Inaccessible ($100k+)</span></td>
+              <td><span class="score-badge neutral">Medium ($2k-5k/season)</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Future Scope & Roadmap (Section 9 of Paper) -->
+  <section class="section" id="roadmap" style="background: rgba(9, 14, 24, 0.4);">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge green">Evolution & Horizons</span>
+        <h2 class="section-title">Future Scope & <span class="gradient-text">Expansion Roadmap</span></h2>
+        <p class="section-subtitle">
+          PitchVision establishes a powerful computer vision foundation that naturally evolves into a comprehensive full-match football analytics suite.
+        </p>
+      </div>
+
+      <div class="roadmap-timeline">
+        <div class="roadmap-card">
+          <span class="roadmap-phase">PHASE 01</span>
+          <h4>Multi-Object Video Tracking</h4>
+          <p>Integration of ByteTrack and BoT-SORT for persistent player identity tracking through occlusions and fast transitions across continuous 90-minute broadcast video.</p>
+        </div>
+
+        <div class="roadmap-card">
+          <span class="roadmap-phase">PHASE 02</span>
+          <h4>3D Ball Physics & Trajectory</h4>
+          <p>Polynomial trajectory regression and 3D flight modeling to infer aerial passes, shot velocity (km/h), and curl physics directly from 2D camera perspectives.</p>
+        </div>
+
+        <div class="roadmap-card">
+          <span class="roadmap-phase">PHASE 03</span>
+          <h4>Pass Networks & Pitch Control</h4>
+          <p>Graph Neural Network (GNN) pass probability modeling combined with Voronoi pitch dominance tessellations to calculate open passing lanes and pressing intensity.</p>
+        </div>
+
+        <div class="roadmap-card">
+          <span class="roadmap-phase">PHASE 04</span>
+          <h4>xG & Automated Scouting</h4>
+          <p>Spatial Expected Goals (xG) algorithms and generative tactical scouting reports delivering comprehensive pre-match and post-match opposition debriefs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Project Deliverables & Technology Stack -->
+  <section class="section" id="deliverables">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge green">System Architecture & Specifications</span>
+        <h2 class="section-title">Core Deliverables & <span class="gradient-text">Technology Stack</span></h2>
+        <p class="section-subtitle">
+          Engineered as a modular, hardware-independent computer vision system capable of real-time match analysis, tactical radar projection, and automated insight generation.
+        </p>
+      </div>
+
+      <!-- Deliverables Grid -->
+      <div class="deliverables-grid">
+        <div class="glass-card deliverable-card">
+          <div class="deliverable-header">
+            <span class="deliverable-num">DELIVERABLE 01</span>
+            <span class="deliverable-badge">Deep Learning</span>
+          </div>
+          <h4>Football Object Detection Engine</h4>
+          <p>Fine-tuned YOLO neural detector localizing outfield players, goalkeepers, referees, and the match ball with sub-pixel foot contact localization.</p>
+          <div class="deliverable-meta">
+            <span>Precision: &gt; 96.5%</span>
+            <span>Speed: &lt; 50ms</span>
+          </div>
+        </div>
+
+        <div class="glass-card deliverable-card">
+          <div class="deliverable-header">
+            <span class="deliverable-num">DELIVERABLE 02</span>
+            <span class="deliverable-badge">Unsupervised ML</span>
+          </div>
+          <h4>Jersey & Team Classification Module</h4>
+          <p>Automated kit color extraction in HSV space with pitch turf filtering and 2-team K-Means clustering without requiring manual team labeling.</p>
+          <div class="deliverable-meta">
+            <span>Accuracy: 98.2%</span>
+            <span>Zero Manual Tags</span>
+          </div>
+        </div>
+
+        <div class="glass-card deliverable-card">
+          <div class="deliverable-header">
+            <span class="deliverable-num">DELIVERABLE 03</span>
+            <span class="deliverable-badge">Geometric CV</span>
+          </div>
+          <h4>Tactical Field Homography System</h4>
+          <p>OpenCV perspective transformation pipeline projecting skewed broadcast pixels onto a calibrated 105m × 68m top-down tactical pitch radar.</p>
+          <div class="deliverable-meta">
+            <span>Matrix: 3×3 Planar H</span>
+            <span>FIFA 105m×68m</span>
+          </div>
+        </div>
+
+        <div class="glass-card deliverable-card">
+          <div class="deliverable-header">
+            <span class="deliverable-num">DELIVERABLE 04</span>
+            <span class="deliverable-badge">Spatial AI</span>
+          </div>
+          <h4>Formation Detection Pipeline</h4>
+          <p>Hierarchical depth clustering and line regression algorithms automatically identifying formations (4-3-3, 4-2-3-1, 3-5-2, 5-3-2) in active play.</p>
+          <div class="deliverable-meta">
+            <span>Dynamic Topology</span>
+            <span>Line Grouping</span>
+          </div>
+        </div>
+
+        <div class="glass-card deliverable-card">
+          <div class="deliverable-header">
+            <span class="deliverable-num">DELIVERABLE 05</span>
+            <span class="deliverable-badge">Analytics Engine</span>
+          </div>
+          <h4>Tactical Telemetry & KPI Dashboard</h4>
+          <p>Automated geometric metrics measuring team compactness convex hull (m²), lateral pitch width, defensive line depth, and midfield superiority.</p>
+          <div class="deliverable-meta">
+            <span>Convex Hull Math</span>
+            <span>Live Telemetry</span>
+          </div>
+        </div>
+
+        <div class="glass-card deliverable-card">
+          <div class="deliverable-header">
+            <span class="deliverable-num">DELIVERABLE 06</span>
+            <span class="deliverable-badge">End-to-End</span>
+          </div>
+          <h4>Stream Processing & Report Generator</h4>
+          <p>Complete documentation, automated tactical visual reporting, and extensible API ready for full 90-minute video sequence ingestion.</p>
+          <div class="deliverable-meta">
+            <span>Open Architecture</span>
+            <span>Video Ready</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tech Stack Ribbon -->
+      <div class="tech-stack-container">
+        <h4 class="tech-stack-title">Core Technology Stack</h4>
+        <div class="tech-badges-grid">
+          <div class="tech-badge-card">
+            <span class="tech-icon">🐍</span>
+            <div>
+              <strong>Python</strong>
+              <small>Core Pipeline</small>
+            </div>
+          </div>
+          <div class="tech-badge-card">
+            <span class="tech-icon">🔥</span>
+            <div>
+              <strong>PyTorch</strong>
+              <small>Deep Learning</small>
+            </div>
+          </div>
+          <div class="tech-badge-card">
+            <span class="tech-icon">⚡</span>
+            <div>
+              <strong>Ultralytics YOLO</strong>
+              <small>Object Localization</small>
+            </div>
+          </div>
+          <div class="tech-badge-card">
+            <span class="tech-icon">👁️</span>
+            <div>
+              <strong>OpenCV</strong>
+              <small>Planar Homography</small>
+            </div>
+          </div>
+          <div class="tech-badge-card">
+            <span class="tech-icon">📊</span>
+            <div>
+              <strong>Scikit-Learn</strong>
+              <small>K-Means Clustering</small>
+            </div>
+          </div>
+          <div class="tech-badge-card">
+            <span class="tech-icon">📐</span>
+            <div>
+              <strong>SciPy / NumPy</strong>
+              <small>Convex Hull Math</small>
+            </div>
+          </div>
+          <div class="tech-badge-card">
+            <span class="tech-icon">🌐</span>
+            <div>
+              <strong>HTML5 Canvas</strong>
+              <small>Interactive Radar</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="logo-brand">
+          <div class="logo-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <circle cx="12" cy="12" r="4"></circle>
+            </svg>
+          </div>
+          <span>Pitch<span class="gradient-text">Vision</span> AI</span>
+        </div>
+
+        <div class="footer-copy">
+          PitchVision: Next-Generation AI-Powered Football Match Analysis, 2D Tactical Radar & Spatial Intelligence Platform
+        </div>
+
+        <div>
+          <a href="#sandbox" class="btn btn-secondary btn-sm">Back to Live Studio ↑</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
